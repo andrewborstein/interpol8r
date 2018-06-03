@@ -6,3 +6,5 @@ tmp/*
 tmp/cache/bootsnap-load-path-cache
 
 *.pid
+
+*.sqlite3
