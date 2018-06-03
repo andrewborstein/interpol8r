@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Shearwater
   class Application < Rails::Application
+    # Automatically load classes in
+    config.autoload_paths += %W(#{config.root}/app/models)
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
