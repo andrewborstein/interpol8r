@@ -5,6 +5,10 @@ class Message < ApplicationRecord
     uniqueness: true,
     format: {
       with: SLUG_REGEX,
-      message: "can only contain lowercase letters and dashes"
+      message: 'can only contain lowercase letters and dashes'
     }
+
+  def output
+    StringInterpolator.new(spec).interpolate
+  end
 end

@@ -14,11 +14,28 @@
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
+    <div>
+      <small>
+        Message names must only use lowercase letters and dashes e.g. <code>${message-name}</code>.
+      </small>
+    <div>
+    <br>
   </div>
 
   <div class="field">
     <%= form.label :spec %>
-    <%= form.text_field :spec %>
+    <%= form.text_area :spec %>
+    <div>
+      <small>
+        To embed the output of another Message, enter its name e.g. <code>${name}</code>.
+      </small>
+    <div>
+    </div>
+      <small>
+        To display embed code as plain text, use two dollar signs e.g. <code>$${name}</code>.
+      </small>
+    </div>
+    <br>
   </div>
 
   <div class="actions">

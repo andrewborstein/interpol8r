@@ -17,7 +17,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create message" do
     assert_difference('Message.count') do
-      post messages_url, params: { message: { name: @message.name, spec: @message.spec } }
+      post messages_url, params: { message: { name: 'three', spec: 'gr8 msg' } }
     end
 
     assert_redirected_to message_url(Message.last)

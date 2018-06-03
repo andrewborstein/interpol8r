@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class StringInterpolatorTest < ActiveSupport::TestCase
   setup do
@@ -15,6 +15,14 @@ class StringInterpolatorTest < ActiveSupport::TestCase
     output = StringInterpolator.new(string).interpolate
 
     assert_equal string, output
+  end
+
+  # When spec is string with interpolation characters that are escaped
+  test "should return string as-is, but with escape characters removed" do
+    string = "Hello, $${world}."
+    output = StringInterpolator.new(string).interpolate
+
+    assert_equal "Hello, ${world}.", output
   end
 
   # When spec contains interpolatable value

@@ -1,5 +1,6 @@
 class StringInterpolator
-  INTERPOLATION_REGEX = /(\${[^}]*\})/
+  INTERPOLATION_REGEX = /((?<!\$)\${[^}]*\})/ # e.g. ${foo}
+  DISPLAY_CODE_REGEX = /(\$\${[^}]*\})/ # e.g. $${foo}
 
   attr_accessor :string
 
@@ -9,7 +10,13 @@ class StringInterpolator
 
   def interpolate
     array_of_substrings.map do |str|
-      interpolate?(str) ? re_interpolate(str) : str
+      if interpolate?(str)
+        re_interpolate(str)
+      elsif display_code?(str)
+        str.gsub('$$', '$')
+      else
+        str
+      end
     end.join()
   end
 
@@ -17,9 +24,17 @@ class StringInterpolator
 
   def array_of_substrings
     # Create an array with two types of substrings:
-    # 1. interpolatable values, e.g. "#{message-name}"
-    # 2. everything else, e.g. "random string of text "
+    # 1. interpolatable values, e.g. "${message-name}"
+    # 2. everything else, e.g. "random text" or "$${no-interpolation}"
     string.split(INTERPOLATION_REGEX)
+  end
+
+  def display_code?(str)
+    str.match(DISPLAY_CODE_REGEX)
+  end
+
+  def find_message_spec_by(str)
+    Message.find_by_name(str).try(:spec)
   end
 
   def interpolate?(str)
@@ -29,10 +44,6 @@ class StringInterpolator
   def message_name(str)
     # Return the value in between `${` and `}`
     str[2..-2]
-  end
-
-  def find_message_spec_by(str)
-    Message.find_by_name(str).try(:spec)
   end
 
   def re_interpolate(str)
