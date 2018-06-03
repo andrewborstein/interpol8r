@@ -1,54 +1,64 @@
 class Message::SpecRunner
-  INTERPOLATION_REGEX = /((?<!\$)\${[^}]*\})/ # e.g. ${foo}
   DISPLAY_CODE_REGEX = /(\$\${[^}]*\})/ # e.g. $${foo}
-
-  attr_accessor :string
+  INTERPOLATION_REGEX = /((?<!\$)\${[^}]*\})/ # e.g. ${foo}
 
   def initialize(string)
     self.string = string
   end
 
-  def interpolate
-    array_of_substrings.map do |str|
-      if interpolate?(str)
-        re_interpolate(str)
-      elsif display_code?(str)
-        str.gsub('$$', '$')
+  def run
+    array_of_substrings.map do |substring|
+      if interpolate_code?(substring)
+        recursively_interpolate(substring)
+      elsif display_code?(substring)
+        present_as_code(substring)
       else
-        str
+        substring
       end
     end.join()
   end
 
   private
 
+  attr_accessor :string
+
   def array_of_substrings
     # Create an array with two types of substrings:
-    # 1. interpolatable values, e.g. "${message-name}"
-    # 2. everything else, e.g. "random text" or "$${no-interpolation}"
+    # 1. interpolatable values
+    # 2. everything else
     string.split(INTERPOLATION_REGEX)
   end
 
-  def display_code?(str)
-    str.match(DISPLAY_CODE_REGEX)
+  def display_code?(substring)
+    # e.g. "$${no-interpolation}"
+    substring.match(DISPLAY_CODE_REGEX)
   end
 
-  def find_message_spec_by(str)
-    Message.find_by_name(str).try(:spec)
+  def find_message_spec_by(substring)
+    # Return the spec of Message in DB with matching name, or nil if none exists
+    Message.find_by_name(substring).try(:spec)
   end
 
-  def interpolate?(str)
-    str.match(INTERPOLATION_REGEX)
+  def interpolate_code?(substring)
+    # e.g. "${interpolation}"
+    substring.match(INTERPOLATION_REGEX)
   end
 
-  def message_name(str)
+  def message_name(substring)
     # Return the value in between `${` and `}`
-    str[2..-2]
+    substring[2..-2]
   end
 
-  def re_interpolate(str)
-    value = find_message_spec_by(message_name(str))
+  def present_as_code(substring)
+    # Remove the first dollar sign
+    substring.gsub('$$', '$')
+  end
 
-    value ? Message::SpecRunner.new(value).interpolate : str
+  def recursively_interpolate(substring)
+    spec = find_message_spec_by(message_name(substring))
+
+    # If spec exists in db, return its output and the output of all referenced specs, infinitely.
+    # Otherwise return substring as-is.
+    spec ? Message::SpecRunner.new(spec).run : substring
   end
 end

@@ -9,6 +9,6 @@ class Message < ApplicationRecord
     }
 
   def output
-    Message::SpecRunner.new(spec).interpolate
+    Message::SpecRunner.new(spec).run
   end
 end
