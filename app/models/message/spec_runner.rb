@@ -1,4 +1,4 @@
-class StringInterpolator
+class Message::SpecRunner
   INTERPOLATION_REGEX = /((?<!\$)\${[^}]*\})/ # e.g. ${foo}
   DISPLAY_CODE_REGEX = /(\$\${[^}]*\})/ # e.g. $${foo}
 
@@ -49,6 +49,6 @@ class StringInterpolator
   def re_interpolate(str)
     value = find_message_spec_by(message_name(str))
 
-    value ? StringInterpolator.new(value).interpolate : str
+    value ? Message::SpecRunner.new(value).interpolate : str
   end
 end
