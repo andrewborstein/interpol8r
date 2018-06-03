@@ -1,10 +1,5 @@
-log/*.log
+log/*
 tmp/*
-
-*.log
-
 tmp/cache/bootsnap-load-path-cache
-
 *.pid
-
 *.sqlite3
