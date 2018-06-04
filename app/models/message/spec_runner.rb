@@ -7,15 +7,17 @@ class Message::SpecRunner
   end
 
   def run
+    # Disassemble the string
     array_of_substrings.map do |substring|
       if interpolate_code?(substring)
-        recursively_interpolate(substring)
+        recursively_interpolate(substring) # Interpolate if necessary
       elsif display_code?(substring)
-        present_as_code(substring)
+        present_as_code(substring) # Leave code samples as-is
       else
-        substring
+        substring # Otherwise, leave alone
       end
     end.join()
+    # Re-assemble the string
   end
 
   private
