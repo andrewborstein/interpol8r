@@ -14,13 +14,13 @@
     <nav class="navbar is-link" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <%= link_to 'Interpol8tr', root_path, class: 'navbar-item has-text-weight-semibold is-uppercase', style: 'letter-spacing: 3px' %>
-        <a role="button" class="navbar-burger has-text-white" data-target="navMenu" aria-label="menu" aria-expanded="false">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
+        <a role="button" class="navbar-burger has-text-white" data-burger aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true" style="pointer-events: none"></span>
+          <span aria-hidden="true" style="pointer-events: none"></span>
+          <span aria-hidden="true" style="pointer-events: none"></span>
         </a>
       </div>
-      <div class="navbar-menu" id="navMenu">
+      <div class="navbar-menu" data-nav>
         <div class="navbar-end">
           <%= link_to 'Message List', messages_path, class: 'navbar-item is-uppercase is-default' %>
           <%= link_to 'New Message', new_message_path, class: 'navbar-item is-uppercase' %>

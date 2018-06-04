@@ -30,15 +30,11 @@ document.addEventListener('click', (function(event) {
 
 // Enable Mobile Side Nav
 
-document.addEventListener('DOMContentLoaded', (function () {
-  var navbarBurger = document.querySelector('.navbar-burger')
+document.addEventListener('click', (function(event) {
+  var burgerClicked = typeof event.target.dataset.burger != 'undefined'
 
-  navbarBurger.addEventListener('click', function(event) {
-    var burger = event.target
-    var nav = document.getElementById(event.target.dataset.target)
-
-    burger.classList.toggle('is-active');
-    nav.classList.toggle('is-active');
-  });
-
+  if (burgerClicked) {
+    event.target.classList.toggle('is-active');
+    document.querySelector('[data-nav]').classList.toggle('is-active');
+  }
 }), false);
