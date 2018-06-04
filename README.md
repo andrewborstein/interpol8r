@@ -37,22 +37,22 @@ This project took about a full day to complete. The general outline of work went
  	* list app functionality / product reqs
  	* list views / pages
  	* list components and subcomponents
- 	* weigh pros and cons of several technology approaches
+ 	* list user flows
+		* index page
+		* new/edit page
+ 	* consider tech stack
  		* rails app w/ standard crud
 		* rails app w/ react front-end
 		* sever-less react app
- 	* user flows
-		* index page
-		* new/edit page
-	* architecture
+	* consider architecture
 		* tl:dr; roll-your-own string interpolation based on db records
 		* should feel like ruby's implementation
 		* how to deal with undefined interpolated values
-	* error handling
+	* consider error handling
 		* do i need it?
-	* open questions
+	* consider open questions
 		* need to strip out reserved words?
-	* tests
+	* consider testing
 		* TDD! start with test cases, work from there.
 		* is rspec ok? do i need to create factories since this involves the db?
 4. Start building the ruby app — ugly but functional, no styling at all
