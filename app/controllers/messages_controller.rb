@@ -6,8 +6,11 @@ class MessagesController < ApplicationController
   def index
     message = Message.find_by_id(params[:message_id])
 
-    flash.now[:warning] = message.output if message
-    @messages = Message.all
+    if message
+      flash.now[:warning] = message.output
+    end
+
+    @messages = Message.all.order(:name)
   end
 
   # GET /messages/new
