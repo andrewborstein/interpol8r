@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
     message = Message.find_by_id(params[:message_id])
 
     if message
-      flash.now[:warning] = message.output
+      flash.now[:notice] = message.output
     end
 
     @messages = Message.all.order(:name)
