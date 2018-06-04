@@ -6,9 +6,12 @@ class Message < ApplicationRecord
       with: SLUG_REGEX,
       message: 'can only contain lowercase letters and dashes'
     },
-    length: 50,
+    length: { maximum: 25 },
+    presence: true,
     uniqueness: true
-  validates :spec, length: 250
+  validates :spec,
+    length: { maximum: 250 },
+    presence: true
 
   def output
     Message::SpecRunner.new(spec).run

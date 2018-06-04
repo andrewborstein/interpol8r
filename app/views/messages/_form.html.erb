@@ -1,24 +1,34 @@
 
 <%= form_with(model: message, local: true) do |form| %>
   <div class="field">
-    <%= form.label :name, class: 'label' %>
+    <%= form.label :name, class: 'label' do %>
+      Name <span class="has-text-grey has-text-weight-normal">(required)<span>
+    <% end %>
     <div class="control">
       <%= form.text_field :name, class: form_field_classes(:name, message, 'input') %>
     </div>
-    <p class="<%= form_field_classes(:name, message, 'help') %>">
-      Message names must only use lowercase letters and dashes e.g. <code>message-name</code>.
+    <p class="<%= form_field_classes(:name, message, 'help', :too_long) %>">
+      Must be 25 characters or less.
+    </p>
+    <p class="<%= form_field_classes(:name, message, 'help', :invalid) %>">
+      Must contain only lowercase letters or dashes e.g. <code>message-name</code>.
     </p>
   </div>
 
   <div class="field">
-    <%= form.label :spec, class: 'label' %>
+    <%= form.label :spec, class: 'label' do %>
+      Spec <span class="has-text-grey has-text-weight-normal">(required)</span>
+    <% end %>
     <div class="control">
-      <%= form.text_area :spec, class: form_field_classes(:spec, message, 'input') %>
+      <%= form.text_area :spec, class: form_field_classes(:spec, message, 'textarea') %>
     </div>
-    <p class="<%= form_field_classes(:spec, message, 'help') %>">
+    <p class="<%= form_field_classes(:spec, message, 'help', :too_long) %>">
+      Message names must be 250 characters or less.
+    </p>
+    <p class="help">
       To embed the output of another Message, enter its name e.g. <code>${name}</code>.
     </p>
-    <p class="<%= form_field_classes(:spec, message, 'help') %>">
+    <p class="help">
       To display embed code as plain text, use two dollar signs e.g. <code>$${name}</code>.
     </p>
   </div>
