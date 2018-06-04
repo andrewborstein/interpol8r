@@ -20,12 +20,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
       post messages_url, params: { message: { name: 'three', spec: 'gr8 msg' } }
     end
 
-    assert_redirected_to message_url(Message.last)
-  end
-
-  test "should show message" do
-    get message_url(@message)
-    assert_response :success
+    assert_redirected_to messages_url(message_id: Message.last.id)
   end
 
   test "should get edit" do
@@ -35,7 +30,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update message" do
     patch message_url(@message), params: { message: { name: @message.name, spec: @message.spec } }
-    assert_redirected_to message_url(@message)
+    assert_redirected_to messages_url(message_id: Message.last.id)
   end
 
   test "should destroy message" do

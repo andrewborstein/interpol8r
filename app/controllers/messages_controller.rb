@@ -4,12 +4,10 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
-  end
+    message = Message.find_by_id(params[:message_id])
 
-  # GET /messages/1
-  # GET /messages/1.json
-  def show
+    flash.now[:warning] = message.output if message
+    @messages = Message.all
   end
 
   # GET /messages/new
@@ -28,7 +26,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to messages_path(message_id: @message.id) }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }
@@ -42,7 +40,7 @@ class MessagesController < ApplicationController
   def update
     respond_to do |format|
       if @message.update(message_params)
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+        format.html { redirect_to messages_path(message_id: @message.id) }
         format.json { render :show, status: :ok, location: @message }
       else
         format.html { render :edit }

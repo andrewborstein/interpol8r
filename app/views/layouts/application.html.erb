@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Shearwater</title>
+    <title>Interpol8tr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +11,40 @@
   </head>
 
   <body>
-    <%= yield %>
+    <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <%= link_to 'Interpol8tr', root_path, class: 'navbar-item has-text-weight-semibold is-uppercase', style: 'letter-spacing: 3px' %>
+        <a role="button" class="navbar-burger has-text-white" data-target="navMenu" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="navbar-menu" id="navMenu">
+        <div class="navbar-end">
+          <%= link_to 'Message List', messages_path, class: 'navbar-item is-uppercase is-default' %>
+          <%= link_to 'New Message', new_message_path, class: 'navbar-item is-uppercase' %>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <% flash.each do |name, msg| %>
+        <section class="section" style="padding-bottom: 0" data-dismiss-target>
+          <article class="message <%= flash_class(name) %>" role="alert">
+            <div class="message-body is-flex level">
+              <strong><%= msg %></strong>
+              <button class="delete" aria-label="delete" data-dismiss></button>
+            </div>
+          </article>
+        </section>
+      <% end %>
+
+      <section class="section">
+        <%= yield %>
+      </section>
+    </div>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   </body>
 </html>
