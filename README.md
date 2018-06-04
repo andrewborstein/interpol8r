@@ -1,10 +1,10 @@
 # Interpol8r
 
-## Live Web App
+### Demo
 
 https://interpol8r.herokuapp.com/
 
-## Overview
+### Overview
 
 With this super kewl app you can:
 - create `messages` that when run, return text described in their `spec`
@@ -12,6 +12,6 @@ With this super kewl app you can:
 - view a list of all current `messages` (including their `name` and `spec`)
 - have endless fun with the whole family
 
-## Dependencies
+### Dependencies
 - Ruby
 - Rails
