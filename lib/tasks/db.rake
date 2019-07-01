@@ -1,7 +1,7 @@
 namespace :db do
-  # bundle exec rake db:reset
-  desc "Destroy all blogs that random visitors have added."
-  task :reset do
+  # bundle exec rake db:reset_default_data
+  desc "Destroy all messages that random visitors have added."
+  task :reset_default_data => [:environment] do
     messages = Message.all
     count = messages.length
 
